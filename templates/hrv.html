@@ -1,0 +1,116 @@
+{% extends "layout.html" %} {%block content%}
+
+<div style="width: 100%; margin-top: 2%; margin-left: 2%; ">
+    <div class="card" style="width: 20%; height: 100px; float: left; background: white;"> 
+        <div style="text-align: center; font-size: 3ch; font-family: 'IBM Plex Sans', sans-serif;">
+            Patient ID : {{ patientId.id }}
+        </div>
+        
+        <div style="text-align: center; font-size: 1.5ch; font-family: 'IBM Plex Sans', sans-serif;">
+            Next Appointment Date: "10/31/2021"
+        </div>
+    
+        <!-- <p style="text-align: center; align-content: center;"> -->
+        <a href="{{url_for('view_patients')}}" style="color: #18808B;text-align: center;font-size: 1.5ch; font-family: 'IBM Plex Sans', sans-serif;"> 
+            Return to Patient Dashboard </a>
+            <!-- <i class="material-icons-outlined" style="height: 1ch; width: 1ch; color: #444B54;">
+                arrow_back_ios </i> -->
+        <!-- </p> -->
+    </div>
+    <!--Outter main DIV for white box-->
+    <div style="width:75%; height: 150px; margin-left: 22%; background: #FFFFFF; border: black; border-radius: 0.5%;">
+        <div  style="background-color: #FFFFFF;display: flex; overflow-x: auto;">
+            {% for date in dates %}
+            <div style="background-color: #FFFFFF ; margin: 5px;  border-style: solid;
+            border-width: thick; border-radius: 0.5%; border-color:#E3E3E3 ; height: 90%; width: 80%;"> 
+                Add Bar Plot Here
+                <button class="mdc-button mdc-button--raised" style=" background-color: white; color: #EE8200; border: 2px solid #EE8200; overflow: hidden; white-space: nowrap;">
+                    <span class="mdc-button__label">{{ date }}</span>
+                  </button>
+            </div>
+            {% endfor %}
+          </section>
+        </div>
+    </div>
+</div>
+<div  style="width: 100%; margin-left: 2%;">
+    <div  class="card"style="width: 20%; height: 675px; margin-top: -4%;float: left; background: white;"> 
+            <div style="text-align: center; margin-top: 5%; margin-bottom: 10%; font-family: 'IBM Plex Sans', sans-serif;">
+                Select Measure:  
+            </div>
+            <div class="card-body" style="text-align: center; " >
+                <button type="button" class="mdc-button mdc-button--raised button-careportal" style="transition-duration: 0.4s; font-family: 'IBM Plex Sans', sans-serif;
+                background-color: white;
+                color: #EE8200;
+                border: 2px solid #EE8200;
+                overflow: hidden;
+                white-space: nowrap;
+                display: inline-block;
+                text-overflow: ellipsis; margin-bottom:2ch; width: 250px; height:55px ;" onclick="window.location.href='{{ url_for( 'overall_patient_progress' , patient_id=patientId.id ) }}';">
+                    <span> Overall progress </span>
+                </button>
+                <button type="button" class="mdc-button mdc-button--raised button-careportal" style=" transition-duration: 0.4s; font-family: 'IBM Plex Sans', sans-serif;
+                background-color: white;
+                color: #EE8200;
+                border: 2px solid #EE8200;
+                overflow: hidden;
+                white-space: nowrap;
+                display: inline-block;
+                text-overflow: ellipsis; margin-bottom:2ch; width: 250px; height:55px ;" onclick="window.location.href='{{ url_for( 'patient', patient_id=patientId.id) }}';">
+                    <span> Heart Rate </span>
+                </button>
+                <button type="button" class="mdc-button mdc-button--raised button-careportal" style="    transition-duration: 0.4s;font-family: 'IBM Plex Sans', sans-serif;
+                background-color: white;
+                color: #EE8200;
+                border: 2px solid #EE8200;
+                overflow: hidden;
+                white-space: nowrap;
+                display: inline-block;
+                text-overflow: ellipsis; margin-bottom:2ch; width: 250px; height:55px ;" onclick="window.location.href='{{url_for( 'hrv', patient_id=patientId.id)}}';">
+                    <span> Heart Rate Variability </span>                   
+                </button>
+                <button type="button" class="mdc-button mdc-button--raised button-careportal" style="    transition-duration: 0.4s;font-family: 'IBM Plex Sans', sans-serif;
+                background-color: white;
+                color: #EE8200;
+                border: 2px solid #EE8200;
+                overflow: hidden;
+                white-space: nowrap;
+                display: inline-block;
+                text-overflow: ellipsis; margin-bottom:2ch; width: 250px; height:55px ;" onclick="window.location.href='{{url_for( 'activity_levels', patient_id=patientId.id)}}';">
+                    <span> Activity Levels </span>                   
+                </button>
+            </div>
+    </div>
+    <div  style="width: 75%; height: 623px; margin-left: 22%; margin-top:2% ; background: #FFFFFF; border-radius: 0.5%; font-family: 'IBM Plex Sans', sans-serif;"> 
+        <div class="card" style="width: 230px;font-family: 'IBM Plex Sans', sans-serif;">
+            Maximum Heart Rate {{ max_hr }} bpm.
+        </div>
+        <div class="card" style="width: 230px; font-family: 'IBM Plex Sans', sans-serif;">
+            Minimum Heart Rate {{ min_hr }} bpm.
+        </div>
+        <div style="float: left; font-family: 'IBM Plex Sans', sans-serif;"> <!--For char wrapping -->
+            <div id="chart1" style="float: left;font-family: 'IBM Plex Sans', sans-serif;height: 30%;width: 50%;">
+                <script>
+                    var graph1 = {{fig_hrv| safe}};
+                    Plotly.plot("chart1", graph1, {})
+                </script>
+            </div>
+            <i class="material-icons-outlined" style="height: 2ch; width: 2ch; color: #444B54;">
+                info </i>        
+            </div>
+        <div  style="float:right ; height: 44ch; width: 33ch; margin-right: 1%; margin-top: 1%; ">
+            <p style="float: left; font-family: 'IBM Plex Sans', sans-serif;"> Notes </p>
+            <a style="float: right; color: #18808B;text-align: center;font-size: 1.5ch;font-family: 'IBM Plex Sans', sans-serif;"> 
+                Submit and Save </a>
+            <!-- <img  src="/static/careportal_logo/back_button.png" style="height: 2ch; width: 2ch; background-color: white;"> -->
+            <!-- <i class="material-icons-outlined" style="height: 1ch; width: 1ch; color: #444B54;">
+                check_circle</i> -->
+            <form style="background: white; ">
+                <input type="text" placeholder="Enter patient’s notes here... " style="float: right;height: 25ch; width: 35ch; margin-right: 5%; background-color: #F8F8F8; text-align: start; border: #000000; box-sizing: border-box; border-width: thin;">
+            </form>
+            <button type="button" class="button-careportal btn" style="background-color: white;color: #EE8200; border: 2px solid #EE8200; overflow: hidden;margin-top: 2%; margin-left:20%; align-content: center; font-family: 'IBM Plex Sans', sans-serif;"> Download Report as pdf</button>
+        </div>
+        
+    </div>
+</div>
+{% endblock content %}

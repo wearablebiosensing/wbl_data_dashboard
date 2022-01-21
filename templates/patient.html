@@ -1,0 +1,199 @@
+
+{% extends "layout.html" %} {%block content%}
+
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="background-color: #18808B ; border-radius: 3px; margin-top: 2%; margin-right: 1%;">
+            <div style="border-radius: 2%;background-color: #F8F8F8; margin-left: 1%;"> 
+                <div style="text-align: center; font-size: 3ch; font-family: 'IBM Plex Sans', sans-serif;">
+                    Patient: {{patientId}}
+                </div>
+                <div style="text-align: center; align-items: center;">
+                    <b> Patient Demographics  </b>
+                 </div>
+                 <div style="font-family: 'IBM Plex Sans', sans-serif; margin-left: 2%;">
+                    <b> Name:</b> {{family_name}} {{given_name}}<br>
+                    <b> Age:</b> 15 Years <br>
+                    <b> Gender:</b>  {{gender}}
+                </div>
+                </div>
+                <div style="margin-top: 3%; border-radius: 2%;background-color: #FFFFFF;"> 
+
+                    <div style="text-align: center; font-size: 1.5ch; font-family: 'IBM Plex Sans', sans-serif;">
+                        <b> Next Appointment Date:</b> "10/31/2021"
+                    </div> 
+                </div>
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100" style="margin-top: 4%; background-color: #FFFFFF; border-radius: 2px;">
+                    <div style="text-align: center;align-items: center; font-size: 8pt; color: black; font-family: 'IBM Plex Sans', sans-serif;">
+                       <i> DISCLAIMER: You are viewing hypothesized data.</i>
+                    </div>
+                    <div style="text-align: center;align-items: center; margin-top: 5%; font-size: 12pt; color: black; font-family: 'IBM Plex Sans', sans-serif;">
+                        Wearable Device:
+                        <i>
+                        <a class = "nav_bar_links" href="https://support.microsoft.com/en-us/topic/what-can-i-still-do-with-my-microsoft-band-a2a59355-5be0-3441-9fff-4dc27bcbafb5">
+                        Microsoft Smart Band
+                        </a>
+                        </i>
+                    </div>
+                    <div style="text-align: center;align-items: center; margin-top: 15%; margin-left: 8%; font-size: 16pt; color: black; font-family: 'IBM Plex Sans', sans-serif;">
+                        Select Measure:
+                    </div>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" style="margin-top: 20%;">
+                        <li class="nav-item">
+                            <a href="{{ url_for( 'overall_patient_progress' , patient_id=patientId ) }}" class="nav-link px-0 align-middle" style="color: #18808B;font-family: 'IBM Plex Sans', sans-serif">
+                                <i>
+                                    <span class="material-icons-outlined">
+                                        timeline
+                                        </span>
+                                </i> <span class="nav_bar_links ms-1 d-none d-sm-inline" style="font-size: 15pt;">Overall Progress</span></a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for( 'patient', patient_id=patientId) }}" class=" nav-link px-0 align-middle" style="color:#EE8200;font-family: 'IBM Plex Sans', sans-serif" >
+                                <i>
+                                    <span class="material-icons-outlined">
+                                        favorite
+                                        </span>
+                                    </i> <span class="nav_bar_links ms-1 d-none d-sm-inline" style="color: #EE8200; font-size: 15pt;">Heart Rate</span></a>
+                        </li>     
+                        <li>
+                            <a href="{{url_for( 'activity_levels', patient_id=patientId)}}" class="nav-link px-0 align-middle" style="color: #18808B;font-family: 'IBM Plex Sans', sans-serif">
+                                <i>
+                                    <span class="material-icons-outlined">
+                                        snowshoeing
+                                        </span>
+                                </i> 
+                                <span class="nav_bar_links ms-1 d-none d-sm-inline" style="font-size: 15pt;">Activity Levels</span>
+                            </a>
+                        </li>  
+                    </ul>
+                 
+                </div>
+        </div>
+        <div class="card" style="background-color: #FFFFFF; width: 80%; margin-top:2%;  overflow-y: scroll;">
+            <div class="box-effect1 card" style="align-self: center;width: 22%;margin-top: 1%;">
+                <!-- float: right; margin-top:0px; margin-right: 14px;margin-left: 5%; -->
+                <form action="" method="POST" style=" align-self: center;width: fit-content; ">
+                    <div style="font-weight: 800; font-size: 18px;font-family: 'IBM Plex Sans', sans-serif; text-align: center; margin-left: 15%;"> 
+                        Filter data by day 
+                    </div>
+                   <label for="date_patient" style="font-family: 'IBM Plex Sans', sans-serif;font-size: 12pt;">
+                    Select Day
+                    </label>
+                      {{ form.date }} 
+                      <button  id="" class = "button_submit_form">
+                        Submit
+                     </button>
+               </form>
+            </div>
+            <div class="box-effect1 card" style="align-self: center;margin-top: 1%;">
+                <i  style="  position: absolute;
+                top: 8px;
+                left: 16px;">
+                    <span onclick="on()" class="material-icons-outlined" >
+                        info
+                    </span>
+                </i>
+                <img style= "margin-top: 0%;" src="{{url_for('static',filename=file_name_hr)}}">
+                </img>
+  
+                <span class="material-icons-outlined" style=" position: absolute;  color: #ffd500f7;float: left; bottom: 125px;
+                left: 55px;">
+                    wb_sunny
+                    </span>
+                <span class="material-icons-outlined" style="position: absolute;color: #8f8f8f;bottom: 125px;
+                left: 810px;">
+                    dark_mode
+                </span>
+
+                <table style="align-self: center; margin-bottom: 2%;">
+                    <tr>
+                      <td style="width: 50%;"> Maximum Heart Rate {{max_d}} bpm. </td>
+                      <td style="width: 50%;"> Average Heart Rate {{mean_d}} bpm. </td>
+                    </tr>
+                    <tr>
+                      <td style="width: 50%;"> Minimum Heart Rate {{min_d}} bpm. </td>
+                      <td style="width: 50%;"> Standard Deviation {{std_d}} bpm. </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="box-effect1 card  " style="width: 80%; height: 80%; align-self: center; margin-top: 2%;">
+                <div id="hourly_average" style=" position: relative;   
+                font-family: 'IBM Plex Sans', sans-serif;">
+                    <script>
+                        var config = {displaylogo: false};
+                        var graph11 = {{hourly_average_json| safe}};
+                        Plotly.plot("hourly_average", graph11,config)
+                    </script>
+                </div>
+                <!-- margin-top: 46%; margin-left:6% ; -->
+                <span class="material-icons-outlined" style=" position: absolute;  color: #ffd500f7;float: left; bottom: 45px;
+                left: 55px;">
+                    wb_sunny
+                    </span>
+                <span class="material-icons-outlined" style="position: absolute;color: #8f8f8f;bottom: 45px;
+                left: 810px;">
+                    dark_mode
+                </span>
+            </div>
+        <!-- DIV for info button -->
+        <div class="card" style="width: 18rem;"id="overlay">
+            <div class="card-body">
+                    <a class="nav_bar_links" href= "#" onclick="off()">
+                        Close 
+                    </a>
+                  <h5 class="card-title">Straight Lines in Heart Rate data</h5>
+                  <h6 class="card-subtitle mb-2 text-muted"> Why are there straight lines in the Heart Rate data?
+                </h6>
+                  <p class="card-text"> This is because no data is avaliable during those time. This can be due to many reasons. The sensor did not work, The participant did not wear the watch etc.</p>
+                </div>
+        </div>
+            <!-- On click of Notes button show this div tag. -->
+            <div  id= "notes_tag" style="height: 44ch; width: 33ch; margin-right: 1%; margin-top: 1%;display:none; ">
+                <form style="background: white; ">
+                    <input type="text" placeholder="Enter patient’s notes here... " style="float: right;height: 25ch; width: 35ch; margin-right: 5%; background-color: #F8F8F8; text-align: start; border: #000000; box-sizing: border-box; border-width: thin;">
+                </form>
+            </div>
+
+             
+        </div> <!---Highest level DIV tag -->
+
+<script>
+    function notes_function() {
+        var x = document.getElementById("notes_tag");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    
+    // Take in a div ID to be toggled between interactive and image.
+    function heart_rate_toggle(divId){
+        varon = divId + "chart1";
+        varoff =  divId + "interactive";
+        console.log(divId);
+        console.log(varoff);
+        console.log(varon);
+        if(document.getElementById(varon).style.display == 'block'){
+            document.getElementById(varon).style.display = 'none';
+            document.getElementById(varoff).style.display = 'block';
+        }
+        else{
+            document.getElementById(varoff).style.display = 'none';
+            document.getElementById(varon).style.display = 'block'
+        }
+    }
+    
+    function on() {
+            document.getElementById("overlay").style.display = "block";
+    }
+    
+    function off() {
+        document.getElementById("overlay").style.display = "none";
+    }
+
+</script>
+
+
+{% endblock content %}

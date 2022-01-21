@@ -1,0 +1,74 @@
+<!--
+#####################################
+# Author: Shehjar Sadhu.            #
+# Project: Care- Portal.            #
+# Date: Jab 2022.   #
+#####################################
+-->
+{% extends "layout.html" %} {%block content%}
+<h1 style="text-align: center; margin-top: 2ch; color: #FFFFFF;">
+     Welcome to Care-Well Dashboard
+</h1>
+
+<div class="container"style=" width: fit-content !important;">
+     <div class="box-effect1 card" style="width: 100%; height: 100%; align-self: center; margin-top: 2%;">
+         <div id="pie_chart" style=" position: relative;   
+         font-family: 'IBM Plex Sans', sans-serif;">
+             <script>
+               var piList = {{pi_chart_list}};
+               var data = [{
+                    values: piList,
+                    labels: ['Yes', 'No'],
+                    type: 'pie'
+                    }];
+                    colorscale = [[0, 'red'],[1, '#18808B']];
+                    var config = {
+                                'displaylogo': false,
+                                modeBarButtonsToRemove:['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d','toggleSpikelines','hoverClosestCartesian', 'hoverCompareCartesian','autoScale2d']};
+                    var layout = {
+                    height: 400,
+                    width: 500
+                    };
+                    var layout = {
+                                height:"500", 
+                                width:"900",
+                                xaxis:{
+                                    title:{
+                                        text: "Day",
+                                        font: {
+                                            family: 'IBM Plex Sans"',
+                                            size: 20,
+                                            color: '#7f7f7f'
+                                        }
+                                },
+                                    linewidth:2, linecolor:'black',showticklabels: true
+                                },
+                                yaxis:{
+                                    title:{
+                                        text: "Average Heart Rate per hour",
+                                        font: {
+                                            family: 'IBM Plex Sans',
+                                            size: 20,
+                                            color: '#7f7f7f'
+                                        }
+                                },                                        
+                                showticklabels:true,linewidth:2, linecolor:'black'
+                                },
+                                title:{
+                                    text:"Initial Assessment Responses",
+                                    font: {
+                                        family: 'IBM Plex Sans',
+                                        size: 30
+                                        }                               
+                                }
+                            
+                            };
+
+                    Plotly.newPlot('pie_chart', data,layout,config);
+             </script>
+         </div>
+ </div> <!-- For Box effect plot container -->
+ </div>
+
+
+{%endblock content%}

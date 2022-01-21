@@ -1,0 +1,35 @@
+<!--
+#####################################
+# Author: Shehjar Sadhu.            #
+# Project: Care- Portal.            #
+# Date: Jab 2022.   #
+#####################################
+-->
+{% extends "layout.html" %} {%block content%}
+<h1 style="text-align: center; margin-top: 2ch; color: #FFFFFF;">
+     Welcome to Care-Portal
+</h1>
+<!-- <img src="/static/careportal_logo/cp_logo.png" style="text-align: center;">  -->
+<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Research Study 1: Project ED Ear </h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="{{url_for('view_patients')}}" class="button-careportal btn btn" style="margin-right: 1ch;">Click Here to View Dashboard</a>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Research Study 2: Project CareWell</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="{{url_for('view_carewell_patients')}}" class="button-careportal btn btn" style="margin-right: 1ch;">Click Here to View Dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock content%}
